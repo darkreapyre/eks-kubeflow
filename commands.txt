@@ -1,0 +1,11 @@
+# Ensure root
+sudu su -
+
+# Create .kubeconfig
+eksctl utils write-kubeconfig --cluster $AWS_CLUSTER_NAME
+
+# Confirm cluster connectivity
+kubectl get nodes
+
+# Launch Kubeflow dashboard
+kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
