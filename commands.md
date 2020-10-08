@@ -1,19 +1,25 @@
-# Ensure root user
-sudu su -
+# Useful K8s Commands
 
-# Create .kubeconfig
+### Create .kubeconfig
+
+```shell
 eksctl utils write-kubeconfig --cluster $AWS_CLUSTER_NAME
+```
 
-# Confirm cluster connectivity
+### Confirm cluster connectivity
+```shell
 kubectl get nodes
+```
 
-# Launch Kubeflow dashboard
+### Launch Kubeflow dashboard
+```shell
 kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
-
+```
 
 ---
 # Install KubeFlow on EKS
 
+```shell
 source ~/.bash_profile
 
 echo "eks cluster name is $AWS_CLUSTER_NAME"
@@ -26,13 +32,6 @@ ROLE_NAME=$(aws cloudformation describe-stack-resources --stack-name $STACK_NAME
 echo "export ROLE_NAME=${ROLE_NAME}" | tee -a ~/.bash_profile
 
 export NODEGROUP_NAME=$(eksctl get nodegroups --cluster ${AWS_CLUSTER_NAME} -o json | jq -r '.[0].Name')
-eksctl scale nodegroup --cluster ${AWS_CLUSTER_NAME} --name $NODEGROUP_NAME --nodes 6 --nodes-max 10
-
-#curl --silent --location "https://github.com/kubeflow/kfctl/releases/download/v1.0.1/kfctl_v1.0.1-0-gf3edb9b_linux.tar.gz" | tar xz -C /tmp
-
-curl --silent --location "https://kubeflow-aws.s3-us-west-2.amazonaws.com/kfctl/linux/kfctl_v1.0.2-1-g93e95e1_linux.tar.gz" | tar xz -C /tmp
-
-sudo cp -v /tmp/kfctl /usr/local/bin
 
 cat << EoF > kf-install.sh
 export AWS_CLUSTER_NAME=\${AWS_CLUSTER_NAME}
@@ -73,3 +72,4 @@ export NODE_IAM_ROLE_NAME=$(eksctl get iamidentitymapping --cluster ${AWS_CLUSTE
 aws iam attach-role-policy --role-name ${NODE_IAM_ROLE_NAME} --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
 aws iam attach-role-policy --role-name ${NODE_IAM_ROLE_NAME} --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
 aws iam attach-role-policy --role-name ${NODE_IAM_ROLE_NAME} --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
+```
