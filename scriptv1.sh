@@ -8,7 +8,7 @@ export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/doc
 
 CLUSTER_RAND=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
 
-export AWS_CLUSTER_NAME=eks-$CLUSTER_RAND
+export AWS_CLUSTER_NAME=$CLUSTER_RAND
 
 aws configure set default.region ${AWS_REGION}
 #aws configure set aws_output json
