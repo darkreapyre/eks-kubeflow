@@ -51,7 +51,8 @@ curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.15
 chmod +x aws-iam-authenticator
 sudo mv aws-iam-authenticator /usr/local/bin
 
-eksctl utils write-kubeconfig --cluster ${AWS_CLUSTER_NAME}
+# eksctl utils write-kubeconfig --cluster ${AWS_CLUSTER_NAME}
+# eksctl utils write-kubeconfig --cluster ${AWS_CLUSTER_NAME} --kubeconfig=/root/.kube/config
 cd ${KF_DIR} && kfctl apply -V -f ${CONFIG_FILE}
 kubectl -n kubeflow get all
 

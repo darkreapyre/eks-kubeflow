@@ -39,11 +39,14 @@ aws kms create-alias --alias-name alias/${AWS_CLUSTER_NAME} --target-key-id $(aw
 
 export MASTER_ARN=$(aws kms describe-key --key-id alias/${AWS_CLUSTER_NAME} --query KeyMetadata.Arn --output text)
 
+export KUBECONFIG=/root/.kube/config
+
 echo "export MASTER_ARN=${MASTER_ARN}" | tee -a ~/.bash_profile
 
 echo "export AWS_CLUSTER_NAME=${AWS_CLUSTER_NAME}" | tee -a ~/.bash_profile
 
 echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
+
 
 cat << EOF > ${AWS_CLUSTER_NAME}.yaml
 ---
@@ -67,3 +70,4 @@ EOF
 
 eksctl create cluster -f ${AWS_CLUSTER_NAME}.yaml
 eksctl utils write-kubeconfig --cluster ${AWS_CLUSTER_NAME}
+# eksctl utils write-kubeconfig --cluster ${AWS_CLUSTER_NAME} --kubeconfig=/root/.kube/config
