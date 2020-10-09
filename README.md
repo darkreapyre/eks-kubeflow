@@ -10,7 +10,7 @@ The scripts in this git repo are referenced from https://eksworkshop.com/ and ht
 
 1) Clone the git repo locally on your workstation and execute the Cloudformation template (we assume that you have already setup awscli)
 
-aws cloudformation create-stack --stack-name myteststack --template-body file://cfv1.json --capabilities CAPABILITY_IAM
+aws cloudformation create-stack --stack-name demo --template-body file://cfv1.json --capabilities CAPABILITY_IAM --region us-east-1
 
 ![ScreenShot1](/images/ScreenShot1.png)
 
