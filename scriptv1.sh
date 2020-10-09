@@ -65,7 +65,7 @@ managedNodeGroups:
   iam:
     withAddonPolicies:
       albIngress: true
-
+availabilityZones: [["${AWS_REGION}a", "${AWS_REGION}b", "${AWS_REGION}c"]
 secretsEncryption:
   keyARN: ${MASTER_ARN}
 EOF
