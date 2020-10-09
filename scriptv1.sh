@@ -47,6 +47,7 @@ echo "export AWS_CLUSTER_NAME=${AWS_CLUSTER_NAME}" | tee -a ~/.bash_profile
 
 echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
 
+echo "export KUBECONFIG=${KUBECONFIG}" | tee -a ~/.bash_profile
 
 cat << EOF > ${AWS_CLUSTER_NAME}.yaml
 ---
