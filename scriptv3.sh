@@ -85,4 +85,8 @@ export assume_role_policy_document='{
 
 aws iam create-role --role-name sm-k8-role-${AWS_CLUSTER_NAME} --assume-role-policy-document file://<(echo "$assume_role_policy_document")
 aws iam attach-role-policy --role-name sm-k8-role-${AWS_CLUSTER_NAME} --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
-aws iam attach-role-policy --role-name sm-k8-role-${AWS_CLUSTER_NAME} --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+# aws iam attach-role-policy --role-name sm-k8-role-${AWS_CLUSTER_NAME} --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+aws iam attach-role-policy --role-name sm-k8-role-${AWS_CLUSTER_NAME} --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+export SM_K8_ROLE=$(aws iam get-role --role-name sm-k8-role-${AWS_CLUSTER_NAME} --output text --query 'Role.Arn')
+echo "export SM_K8_ROLE=$SM_K8_ROLE" | tee -a ~/.bash_profile
